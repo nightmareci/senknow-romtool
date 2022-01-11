@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(convert-senknow-roms
+project(senknow-romtool
 	VERSION 1.0.0
 	LANGUAGES C
 )
@@ -7,3 +7,23 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED TRUE)
 
 add_executable("${PROJECT_NAME}" "${PROJECT_NAME}.c")
+
+if(UNIX)
+	include(GNUInstallDirs)
+	install(TARGETS "${PROJECT_NAME}" DESTINATION "${CMAKE_INSTALL_BINDIR}")
+else()
+	install(TARGETS "${PROJECT_NAME}" DESTINATION ".")
+endif()
+
+set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
+set(CPACK_PACKAGE_VENDOR nightmareci)
+if(VCPKG_TARGET_TRIPLET)
+	set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${VCPKG_TARGET_TRIPLET}")
+elseif(APPLE)
+	set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-macos")
+elseif(CMAKE_SYSTEM_PROCESSOR)
+	set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")
+else()
+	set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${CMAKE_SYSTEM_NAME}")
+endif()
+include(CPack)

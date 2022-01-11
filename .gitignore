@@ -1,0 +1,22 @@
+# Build and IDE files.
+/build**
+/.vscode
+/out
+/.vs
+
+# Original/split ROMs.
+snw000j1.u6
+snw001j1.u4
+snw10000.u21
+snw10100.u20
+snw20000.u17
+snw20100.u9
+snw21000.u3
+snw30000.u1
+
+# Combined/renamed ROMs.
+user1.rom
+spritegen.rom
+gfx2.rom
+gfx3.rom
+ymz.rom
